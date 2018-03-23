@@ -19,9 +19,26 @@ constructor(props) {
    this.activeCells = _.sampleSize(flatMatrix, this.props.activeCellsCount);
 
    this.state = {
-     gameState: 'ready'
+     gameState: 'ready',
+     wrongGuesses:[],
+     correctGuesses:[]
     };
   }
+  recordGuess({cellId,userGuessIsCorrect}){
+      let {wrongGuesses,correctGuesses}=this.state;
+      if(userGuessIsCorrect){
+        correctGuesses.push(cellId);
+      }
+      else{
+        wrongGuesses.push(cellId);
+      }
+      this.setState({
+        correctGuesses,
+        wrongGuesses
+      });
+  }
+
+
   componentDidMount(){
     setTimeout(() => { this.setState({ gameState: 'memorize' }, () => {
       setTimeout(() => this.setState({ gameState: 'recall' }), 2000);
@@ -39,7 +56,7 @@ constructor(props) {
          this.matrix.map((row, index) => (
 
           <Row key={index}>
-          {row.map(cellId => <Cell  key={cellId} id={cellId} activeCells={this.activeCells} {...this.state} />)}
+          {row.map(cellId => <Cell recordGuess={this.recordGuess.bind(this)} key={cellId} id={cellId} activeCells={this.activeCells} {...this.state} />)}
           </Row>
           ))
        }
