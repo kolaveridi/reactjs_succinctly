@@ -3,13 +3,10 @@ import ReactDOM from 'react-dom';
 class Cell extends React.Component{
 
   active(){
-    var activeCells=this.props.activeCells;
-    var flag=false;
-    if(activeCells.indexof(this.props.id)>=0)
-    flag=true;
-    return flag;
+    return this.props.activeCells.indexOf(this.props.id) >= 0;
   }
   render(){
+    console.log('this.activeCells is '+this.props.activeCells);
     console.log(this.props.gameState);
     let className="cell";
     if(this.props.gameState==="memorize" && this.active()){

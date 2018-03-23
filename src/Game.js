@@ -17,7 +17,7 @@ constructor(props) {
    }
    let flatMatrix = _.flatten(this.matrix);
    this.activeCells = _.sampleSize(flatMatrix, this.props.activeCellsCount);
-   console.log('this.activeCells is '+this.activeCells);
+
    this.state = {
      gameState: 'ready'
     };
@@ -39,7 +39,7 @@ constructor(props) {
          this.matrix.map((row, index) => (
 
           <Row key={index}>
-          {row.map(cellId => <Cell {...this.state} key={cellId} id={cellId} activeCells={this.activeCells}  />)}
+          {row.map(cellId => <Cell  key={cellId} id={cellId} activeCells={this.activeCells} {...this.state} />)}
           </Row>
           ))
        }
